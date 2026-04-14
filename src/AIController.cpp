@@ -1,20 +1,20 @@
 #include "AIController.h"
+#include <cmath>
 
 AIController::AIController(Paddle& paddle, const Ball& ball)
     : m_controlledPaddle(paddle), m_ball(ball) {
 }
 
-void AIController::update(float dt) {
-    float ballY = m_ball.getBounds().position.y + m_ball.getBounds().size.y / 2.f;
-    float paddleY = m_controlledPaddle.getBounds().position.y + m_controlledPaddle.getBounds().size.y / 2.f;
+void AIController::update() {
+    float ballCenterY = m_ball.getPosition().y;
+    float paddleCenterY = m_controlledPaddle.getPosition().y;
+    float diff = ballCenterY - paddleCenterY;
 
-    if (std::abs(ballY - paddleY) > m_reactionThreshold) {
-        if (ballY > paddleY) {
-            m_controlledPaddle.moveDown(dt);
-        }
-        else {
-            m_controlledPaddle.moveUp(dt);
-        }
+    if (std::abs(diff) > REACTION_THRESHOLD) {
+        float dir = (diff > 0.f) ? 1.f : -1.f;
+        m_controlledPaddle.setVelocity({ 0.f, dir * m_controlledPaddle.getSpeed() });
     }
-    m_controlledPaddle.update(dt);
+    else {
+        m_controlledPaddle.setVelocity({ 0.f, 0.f });
+    }
 }

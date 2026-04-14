@@ -6,11 +6,11 @@ class AIController {
 public:
     AIController(Paddle& paddle, const Ball& ball);
 
-    void update(float dt);
+    void update();
 
 private:
     Paddle& m_controlledPaddle;
     const Ball& m_ball;
 
-    const float m_reactionThreshold = 10.f;
+    static constexpr float REACTION_THRESHOLD = 10.f;
 };

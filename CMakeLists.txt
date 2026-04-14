@@ -33,3 +33,7 @@ add_custom_command(TARGET pong POST_BUILD
 
 
 target_compile_features(pong PRIVATE cxx_std_17)
+
+
+target_compile_definitions(pong PRIVATE WINDOW_HEIGHT=600)
+target_compile_definitions(pong PRIVATE WINDOW_WIDTH=800)

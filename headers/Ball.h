@@ -4,21 +4,22 @@
 
 class Ball : public Entity {
 public:
-    Ball(float startX, float startY);
+    static constexpr float RADIUS = 10.f;
+    static constexpr float INITIAL_SPEED = 350.f;
+
+    Ball();
 
     void update(float dt) override;
     void draw(sf::RenderWindow& window) override;
 
-    void bounceX();
-    void bounceY();
+    sf::FloatRect getBounds()   const;
+    sf::Vector2f  getPosition() const;
+    sf::Vector2f  getVelocity() const;
 
-    void reset(float x, float y);
-
-    sf::FloatRect getBounds() const;
-    sf::Vector2f getVelocity() const;
+    void setPosition(sf::Vector2f pos);
+    void setVelocity(sf::Vector2f vel);
 
 private:
     sf::CircleShape m_shape;
-    sf::Vector2f m_velocity;
-    const float m_initialSpeed = 350.f;
+    sf::Vector2f    m_velocity;
 };
